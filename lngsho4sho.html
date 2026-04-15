@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LNGSHOT — Official Site</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;600;700&family=Barlow:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f2ec;
+    --cream: #e8e2d5;
+    --gold: #c9a84c;
+    --gold-light: #e2c97e;
+    --red: #b82b2b;
+    --gray-dark: #1a1a1a;
+    --gray-mid: #2e2e2e;
+    --gray-text: #8a8278;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--gold);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease;
+    transform: translate(-50%, -50%);
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(201,168,76,0.5);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transition: transform 0.08s ease, width 0.2s ease, height 0.2s ease;
+    transform: translate(-50%, -50%);
+  }
+  body:hover .cursor-ring { opacity: 1; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.5rem 4rem;
+    mix-blend-mode: normal;
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 0.12em;
+    color: var(--gold);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cream);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.2s, color 0.2s;
+  }
+  .nav-links a:hover { opacity: 1; color: var(--gold); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 4rem 4rem 4rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .debut-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    display: inline-block;
+    padding: 0.35rem 1rem;
+    margin-bottom: 2rem;
+    width: fit-content;
+  }
+
+  .hero-group-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(7rem, 14vw, 13rem);
+    line-height: 0.85;
+    letter-spacing: -0.01em;
+    color: var(--white);
+    position: relative;
+  }
+  .hero-group-name span {
+    display: block;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--gold-light);
+  }
+
+  .hero-tagline {
+    margin-top: 2.5rem;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--gray-text);
+    letter-spacing: 0.05em;
+    max-width: 320px;
+    line-height: 1.7;
+  }
+
+  .hero-cta-row {
+    margin-top: 3rem;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  .btn-primary {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    background: var(--gold);
+    color: var(--black);
+    border: none;
+    padding: 0.9rem 2.2rem;
+    cursor: none;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-ghost {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border: 1px solid rgba(245,242,236,0.3);
+    color: var(--white);
+    padding: 0.9rem 2.2rem;
+    cursor: none;
+    background: transparent;
+    text-decoration: none;
+    display: inline-block;
+    transition: border-color 0.2s, transform 0.15s;
+  }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Big decorative group image area */
+  .hero-visual {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #1a1208 0%, #0f0d0a 60%, #000 100%);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  .hero-silhouette {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 0;
+  }
+  .silhouette-grid {
+    display: flex;
+    align-items: flex-end;
+    gap: 2px;
+    width: 100%;
+    height: 100%;
+    padding-top: 6rem;
+  }
+  .sil-member {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    position: relative;
+    overflow: hidden;
+  }
+  .sil-bar {
+    width: 100%;
+    position: relative;
+    transition: opacity 0.3s;
+  }
+  .sil-bar::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 40%;
+    background: linear-gradient(to top, var(--black), transparent);
+  }
+  .sil-m1 { height: 88%; background: linear-gradient(to bottom, #2a1f0e, #1a1408); }
+  .sil-m2 { height: 96%; background: linear-gradient(to bottom, #1e1a0d, #131108); }
+  .sil-m3 { height: 100%; background: linear-gradient(to bottom, #261e0f, #181308); }
+  .sil-m4 { height: 92%; background: linear-gradient(to bottom, #22190d, #161108); }
+
+  /* Abstract figure shapes */
+  .figure {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .hero-right-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to right, var(--black) 0%, transparent 30%),
+                linear-gradient(to top, var(--black) 0%, transparent 25%);
+    z-index: 3;
+  }
+
+  .hero-number {
+    position: absolute;
+    top: 50%; right: 3rem;
+    transform: translateY(-50%);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18rem;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(201,168,76,0.08);
+    z-index: 1;
+    line-height: 1;
+    user-select: none;
+  }
+
+  /* Animated lines */
+  .lines-bg {
+    position: absolute; inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .line {
+    position: absolute;
+    background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.12), transparent);
+    width: 1px;
+    top: 0; bottom: 0;
+    animation: linePulse 4s ease-in-out infinite;
+  }
+  .line:nth-child(1) { left: 20%; animation-delay: 0s; }
+  .line:nth-child(2) { left: 40%; animation-delay: 1s; }
+  .line:nth-child(3) { left: 60%; animation-delay: 2s; }
+  .line:nth-child(4) { left: 80%; animation-delay: 0.5s; }
+  @keyframes linePulse { 0%,100%{opacity:0.3} 50%{opacity:1} }
+
+  .hero-scroll-hint {
+    position: absolute;
+    bottom: 2.5rem; left: 4rem;
+    display: flex; align-items: center; gap: 0.8rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gray-text);
+    z-index: 5;
+  }
+  .scroll-line {
+    width: 40px; height: 1px;
+    background: var(--gold);
+    animation: scrollLine 2s ease-in-out infinite;
+  }
+  @keyframes scrollLine { 0%,100%{width:40px;opacity:1} 50%{width:20px;opacity:0.4} }
+
+  /* DEBUT BANNER */
+  .debut-banner {
+    background: var(--gold);
+    padding: 0.85rem 0;
+    overflow: hidden;
+    position: relative;
+  }
+  .ticker-track {
+    display: flex;
+    white-space: nowrap;
+    animation: ticker 20s linear infinite;
+  }
+  .ticker-item {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.15em;
+    color: var(--black);
+    padding: 0 2.5rem;
+  }
+  .ticker-dot {
+    color: rgba(0,0,0,0.4);
+    padding: 0 0.5rem;
+  }
+  @keyframes ticker { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+  /* ABOUT */
+  .about {
+    padding: 8rem 4rem;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 6rem;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .section-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .section-eyebrow::before {
+    content: '';
+    display: block;
+    width: 30px; height: 1px;
+    background: var(--gold);
+  }
+
+  .about-heading {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.5rem, 6vw, 5.5rem);
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+  }
+
+  .about-text {
+    font-size: 1rem;
+    line-height: 1.9;
+    color: rgba(245,242,236,0.65);
+    margin-bottom: 1.5rem;
+  }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .stat-box {
+    border-top: 1px solid rgba(201,168,76,0.3);
+    padding-top: 1.2rem;
+  }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.8rem;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .stat-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray-text);
+    margin-top: 0.3rem;
+  }
+
+  .about-visual {
+    position: relative;
+  }
+  .about-img-frame {
+    position: relative;
+    aspect-ratio: 3/4;
+    background: var(--gray-dark);
+    overflow: hidden;
+  }
+  .about-img-frame::before {
+    content: 'LNGSHOT';
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 8rem;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(201,168,76,0.1);
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    z-index: 1;
+  }
+  .about-img-inner {
+    position: absolute; inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  .agency-badge {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.4);
+    padding: 0.4rem 1.2rem;
+    position: absolute;
+    bottom: 1.5rem; left: 1.5rem;
+    z-index: 2;
+  }
+  .corner-bracket {
+    position: absolute;
+    width: 30px; height: 30px;
+    border-color: var(--gold);
+    border-style: solid;
+    opacity: 0.5;
+  }
+  .cb-tl { top: -8px; left: -8px; border-width: 2px 0 0 2px; }
+  .cb-tr { top: -8px; right: -8px; border-width: 2px 2px 0 0; }
+  .cb-bl { bottom: -8px; left: -8px; border-width: 0 0 2px 2px; }
+  .cb-br { bottom: -8px; right: -8px; border-width: 0 2px 2px 0; }
+
+  /* MEMBERS */
+  .members-section {
+    padding: 6rem 0 8rem;
+    background: var(--gray-dark);
+  }
+  .members-header {
+    padding: 0 4rem;
+    margin-bottom: 4rem;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+  .members-heading {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 5vw, 5rem);
+    line-height: 0.9;
+  }
+  .members-subtext {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray-text);
+  }
+
+  .members-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3px;
+  }
+
+  .member-card {
+    position: relative;
+    aspect-ratio: 3/4;
+    background: #111;
+    overflow: hidden;
+    cursor: none;
+    group: '';
+  }
+  .member-card:hover .member-overlay { opacity: 1; }
+  .member-card:hover .member-num { opacity: 0; }
+  .member-card:hover .member-img-bg { transform: scale(1.04); }
+
+  .member-img-bg {
+    position: absolute; inset: 0;
+    transition: transform 0.5s ease;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  /* Member color themes */
+  .mc-ohyul .member-img-bg { background: linear-gradient(160deg, #1c1508 0%, #0d0b06 100%); }
+  .mc-ryul .member-img-bg { background: linear-gradient(160deg, #0d1218 0%, #080c12 100%); }
+  .mc-woojin .member-img-bg { background: linear-gradient(160deg, #120808 0%, #0c0606 100%); }
+  .mc-louis .member-img-bg { background: linear-gradient(160deg, #0a0d10 0%, #070910 100%); }
+
+  .member-silhouette {
+    width: 70%;
+    max-height: 85%;
+    position: relative;
+    margin-bottom: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  /* Abstract geometric figure for each member */
+  .fig-shape {
+    width: 100%;
+    padding-top: 160%;
+    position: relative;
+  }
+  .fig-shape svg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+  }
+
+  .member-num {
+    position: absolute;
+    top: 1.5rem; right: 1.5rem;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(201,168,76,0.2);
+    line-height: 1;
+    transition: opacity 0.3s;
+    z-index: 2;
+  }
+
+  .member-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.4) 60%, transparent 100%);
+    opacity: 0.6;
+    transition: opacity 0.4s;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 2rem 1.5rem;
+  }
+  .member-overlay.always { opacity: 0.6 !important; }
+
+  .member-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.2rem;
+    letter-spacing: 0.05em;
+    line-height: 1;
+    color: var(--white);
+    z-index: 4;
+    position: absolute;
+    bottom: 2rem; left: 1.5rem;
+  }
+  .member-role {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    z-index: 4;
+    position: absolute;
+    bottom: 1rem; left: 1.5rem;
+    opacity: 0;
+    transition: opacity 0.3s 0.1s;
+  }
+  .member-card:hover .member-role { opacity: 1; }
+
+  .member-line {
+    position: absolute;
+    bottom: 0; left: 0;
+    height: 3px;
+    width: 0;
+    transition: width 0.4s ease;
+    z-index: 5;
+  }
+  .mc-ohyul .member-line { background: var(--gold); }
+  .mc-ryul .member-line { background: #4a7abf; }
+  .mc-woojin .member-line { background: var(--red); }
+  .mc-louis .member-line { background: #5a8a5a; }
+  .member-card:hover .member-line { width: 100%; }
+
+  /* DEBUT DATE SECTION */
+  .debut-section {
+    padding: 8rem 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .debut-bg-text {
+    position: absolute;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22vw;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(201,168,76,0.04);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    user-select: none;
+    z-index: 0;
+  }
+  .debut-section-content { position: relative; z-index: 1; }
+  .debut-date-display {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 12vw, 11rem);
+    line-height: 0.85;
+    letter-spacing: 0.02em;
+    color: var(--white);
+  }
+  .debut-date-display span { color: var(--gold); }
+  .debut-description {
+    max-width: 500px;
+    margin: 2rem auto;
+    font-size: 0.95rem;
+    line-height: 1.9;
+    color: rgba(245,242,236,0.55);
+  }
+  .debut-divider {
+    width: 60px; height: 1px;
+    background: var(--gold);
+    margin: 2rem auto;
+    opacity: 0.5;
+  }
+
+  /* AGENCY */
+  .agency-section {
+    padding: 5rem 4rem;
+    background: var(--gray-dark);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4rem;
+  }
+  .agency-left { flex: 1; }
+  .agency-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    line-height: 0.9;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+  }
+  .agency-text {
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: rgba(245,242,236,0.55);
+    max-width: 400px;
+  }
+  .agency-right {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-width: 280px;
+  }
+  .social-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: 1rem 1.5rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .social-link:hover {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.05);
+    color: var(--gold);
+  }
+  .social-arrow { opacity: 0.5; font-size: 1.1rem; }
+
+  /* FOOTER */
+  footer {
+    padding: 3rem 4rem;
+    border-top: 1px solid rgba(201,168,76,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+  }
+  .footer-copy {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gray-text);
+  }
+  .footer-members {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gray-text);
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  /* SCROLL ANIMATIONS */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; min-height: 100svh; }
+    .hero-left { padding: 6rem 1.5rem 3rem; }
+    .hero-right { display: none; }
+    .about { grid-template-columns: 1fr; gap: 3rem; padding: 5rem 1.5rem; }
+    .about-visual { display: none; }
+    .members-header { padding: 0 1.5rem; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+    .members-grid { grid-template-columns: repeat(2, 1fr); }
+    .debut-section { padding: 5rem 1.5rem; }
+    .agency-section { flex-direction: column; padding: 4rem 1.5rem; }
+    .footer { flex-direction: column; gap: 1rem; padding: 2rem 1.5rem; text-align: center; }
+    .footer-members { justify-content: center; flex-wrap: wrap; }
+    .hero-cta-row { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">LNGSHOT</a>
+  <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#members">Members</a></li>
+    <li><a href="#debut">Debut</a></li>
+    <li><a href="#agency">Agency</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="debut-tag">Debut — Jan 13, 2026</div>
+    <h1 class="hero-group-name">
+      LNG<span>SHOT</span>
+    </h1>
+    <p class="hero-tagline">Four voices. One vision. The long shot that landed — More Vision's newest sensation.</p>
+    <div class="hero-cta-row">
+      <a href="#debut" class="btn-primary">Debut Track</a>
+      <a href="#members" class="btn-ghost">Meet the Group</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="lines-bg">
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-silhouette">
+        <div class="silhouette-grid">
+          <div class="sil-member"><div class="sil-bar sil-m1"></div></div>
+          <div class="sil-member"><div class="sil-bar sil-m2"></div></div>
+          <div class="sil-member"><div class="sil-bar sil-m3"></div></div>
+          <div class="sil-member"><div class="sil-bar sil-m4"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right-overlay"></div>
+    <div class="hero-number">4</div>
+  </div>
+
+  <div class="hero-scroll-hint">
+    <div class="scroll-line"></div>
+    Scroll to explore
+  </div>
+</section>
+
+<!-- DEBUT TICKER -->
+<div class="debut-banner">
+  <div class="ticker-track">
+    <span class="ticker-item">LNGSHOT</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">MORE VISION</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">DEBUT 01.13.2026</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">OHYUL</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">RYUL</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">WOOJIN</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">LOUIS</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">LNGSHOT</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">MORE VISION</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">DEBUT 01.13.2026</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">OHYUL</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">RYUL</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">WOOJIN</span><span class="ticker-dot">✦</span>
+    <span class="ticker-item">LOUIS</span><span class="ticker-dot">✦</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about" class="about">
+  <div class="fade-up">
+    <div class="section-eyebrow">About the group</div>
+    <h2 class="about-heading">The long<br>shot<br>rises.</h2>
+    <div class="about-stats">
+      <div class="stat-box">
+        <div class="stat-num">4</div>
+        <div class="stat-label">Members</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">2026</div>
+        <div class="stat-label">Debut Year</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">01.13</div>
+        <div class="stat-label">Debut Date</div>
+      </div>
+    </div>
+  </div>
+  <div class="fade-up">
+    <p class="about-text">
+      LNGSHOT is the bold new four-member boy group under More Vision, debuting on January 13, 2026. Formed through a shared drive to defy expectations, the group blends sharp performance with an unapologetic identity.
+    </p>
+    <p class="about-text">
+      Their name speaks to their philosophy — the long shot, the unlikely dream, the moment everyone said it couldn't happen. Ohyul, Ryul, Woojin, and Louis bring together contrasting energy and complementary artistry into one undeniable force.
+    </p>
+    <a href="#members" class="btn-ghost" style="margin-top:1rem;">Meet the members →</a>
+  </div>
+</section>
+
+<!-- MEMBERS -->
+<section id="members" class="members-section">
+  <div class="members-header fade-up">
+    <div>
+      <div class="section-eyebrow" style="padding:0;margin-bottom:0.5rem;">Line Up</div>
+      <h2 class="members-heading">The Four</h2>
+    </div>
+    <span class="members-subtext">More Vision · 2026</span>
+  </div>
+
+  <div class="members-grid">
+
+    <!-- OHYUL -->
+    <div class="member-card mc-ohyul">
+      <div class="member-img-bg">
+        <img src="img/OHYUL.jpg" alt="" width="300">
+        <!-- <svg viewBox="0 0 300 480" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:80%;height:80%;margin-bottom:0">
+          <ellipse cx="150" cy="90" rx="48" ry="55" fill="#3a2e18" opacity="0.8"/>
+          <path d="M102 155 Q80 220 75 310 L225 310 Q220 220 198 155 Q175 140 150 138 Q125 140 102 155Z" fill="#2a2010" opacity="0.9"/>
+          <rect x="82" y="300" width="50" height="120" rx="8" fill="#1e180c" opacity="0.8"/>
+          <rect x="168" y="300" width="50" height="120" rx="8" fill="#1e180c" opacity="0.8"/>
+          <path d="M95 168 Q70 200 65 260 L95 260 Q98 210 108 175Z" fill="#251d0e" opacity="0.7"/>
+          <path d="M205 168 Q230 200 235 260 L205 260 Q202 210 192 175Z" fill="#251d0e" opacity="0.7"/>
+          <line x1="150" y1="40" x2="150" y2="0" stroke="#c9a84c" stroke-width="1" opacity="0.4"/>
+          <circle cx="150" cy="35" r="4" fill="#c9a84c" opacity="0.3"/>
+        </svg> -->
+      </div>
+      <div class="member-num">01</div>
+      <div class="member-overlay"></div>
+      <div class="member-name">Ohyul</div>
+      <div class="member-role">Leader · Lead Vocalist</div>
+      <div class="member-line"></div>
+    </div>
+
+    <!-- RYUL -->
+    <div class="member-card mc-ryul">
+      <div class="member-img-bg">
+        <img src="img/RYUL.jpg" alt="" width="300">
+        <!-- <svg viewBox="0 0 300 480" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:80%;height:80%;margin-bottom:0">
+          <ellipse cx="150" cy="85" rx="44" ry="50" fill="#1a2535" opacity="0.9"/>
+          <path d="M106 148 Q88 210 85 320 L215 320 Q212 210 194 148 Q172 132 150 130 Q128 132 106 148Z" fill="#111e2e" opacity="0.95"/>
+          <rect x="88" y="308" width="46" height="115" rx="6" fill="#0d1624" opacity="0.9"/>
+          <rect x="166" y="308" width="46" height="115" rx="6" fill="#0d1624" opacity="0.9"/>
+          <path d="M95 162 Q72 195 68 255 L96 255 Q100 208 110 168Z" fill="#14202f" opacity="0.8"/>
+          <path d="M205 162 Q228 195 232 255 L204 255 Q200 208 190 168Z" fill="#14202f" opacity="0.8"/>
+          <line x1="130" y1="45" x2="170" y2="45" stroke="#4a7abf" stroke-width="1" opacity="0.5"/>
+          <line x1="150" y1="35" x2="150" y2="0" stroke="#4a7abf" stroke-width="0.5" opacity="0.3"/>
+        </svg> -->
+
+
+      </div>
+      <div class="member-num">02</div>
+      <div class="member-overlay"></div>
+      <div class="member-name">Ryul</div>
+      <div class="member-role">Main Rapper</div>
+      <div class="member-line"></div>
+    </div>
+
+    <!-- WOOJIN -->
+    <div class="member-card mc-woojin">
+      <div class="member-img-bg">
+        <img src="img/WOOJIN.jpg" alt="" width="300">
+        <!-- <svg viewBox="0 0 300 480" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:80%;height:80%;margin-bottom:0">
+          <ellipse cx="150" cy="88" rx="50" ry="57" fill="#2e1010" opacity="0.9"/>
+          <path d="M100 152 Q78 218 76 328 L224 328 Q222 218 200 152 Q176 135 150 133 Q124 135 100 152Z" fill="#200d0d" opacity="0.95"/>
+          <rect x="80" y="314" width="52" height="115" rx="7" fill="#180909" opacity="0.9"/>
+          <rect x="168" y="314" width="52" height="115" rx="7" fill="#180909" opacity="0.9"/>
+          <path d="M92 166 Q68 202 64 265 L93 265 Q97 215 108 172Z" fill="#1c0c0c" opacity="0.8"/>
+          <path d="M208 166 Q232 202 236 265 L207 265 Q203 215 192 172Z" fill="#1c0c0c" opacity="0.8"/>
+          <path d="M130 40 L150 10 L170 40" stroke="#b82b2b" stroke-width="1.5" fill="none" opacity="0.5"/>
+        </svg> -->
+      </div>
+      <div class="member-num">03</div>
+      <div class="member-overlay"></div>
+      <div class="member-name">Woojin</div>
+      <div class="member-role">Main Dancer · Composer</div>
+      <div class="member-line"></div>
+    </div>
+
+    <!-- LOUIS -->
+    <div class="member-card mc-louis">
+      <div class="member-img-bg">
+        <img src="img/LOUIS.jpg" alt="" width="300">
+        <!-- <svg viewBox="0 0 300 480" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:80%;height:80%;margin-bottom:0">
+          <ellipse cx="150" cy="86" rx="46" ry="52" fill="#141c22" opacity="0.9"/>
+          <path d="M104 150 Q84 215 82 322 L218 322 Q216 215 196 150 Q174 134 150 132 Q126 134 104 150Z" fill="#0f151c" opacity="0.95"/>
+          <rect x="84" y="310" width="48" height="118" rx="7" fill="#0b1118" opacity="0.9"/>
+          <rect x="168" y="310" width="48" height="118" rx="7" fill="#0b1118" opacity="0.9"/>
+          <path d="M93 164 Q70 198 66 260 L95 260 Q98 212 110 170Z" fill="#111820" opacity="0.8"/>
+          <path d="M207 164 Q230 198 234 260 L205 260 Q202 212 190 170Z" fill="#111820" opacity="0.8"/>
+          <rect x="140" y="0" width="20" height="40" rx="2" fill="#5a8a5a" opacity="0.25"/>
+          <rect x="130" y="15" width="40" height="10" rx="2" fill="#5a8a5a" opacity="0.2"/>
+        </svg> -->
+      </div>
+      <div class="member-num">04</div>
+      <div class="member-overlay"></div>
+      <div class="member-name">Louis</div>
+      <div class="member-role">Main Vocalist · Maknae</div>
+      <div class="member-line"></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- DEBUT DATE -->
+<section id="debut" class="debut-section">
+  <div class="debut-bg-text">13</div>
+  <div class="debut-section-content fade-up">
+    <div class="section-eyebrow" style="justify-content:center;padding:0;margin-bottom:2rem;">Official Debut</div>
+    <div class="debut-date-display">
+      JAN<br><span>13</span><br>2026
+    </div>
+    <div class="debut-divider"></div>
+    <p class="debut-description">
+      The long shot became reality. On January 13, 2026, LNGSHOT officially debuted under More Vision — four members, one debut, and an era that had only just begun.
+    </p>
+    <a href="#agency" class="btn-primary">Follow the Journey</a>
+  </div>
+</section>
+
+<!-- AGENCY -->
+<section id="agency" class="agency-section">
+  <div class="agency-left fade-up">
+    <div class="section-eyebrow">The Label</div>
+    <h2 class="agency-name">More<br>Vision</h2>
+    <p class="agency-text">
+      More Vision is the creative agency and label behind LNGSHOT, dedicated to cultivating artists who push beyond expectation. With a bold philosophy rooted in authenticity and vision, More Vision builds careers that last.
+    </p>
+  </div>
+  <div class="agency-right fade-up">
+    <a href="#" class="social-link">Instagram <span class="social-arrow">↗</span></a>
+    <a href="#" class="social-link">YouTube <span class="social-arrow">↗</span></a>
+    <a href="#" class="social-link">TikTok <span class="social-arrow">↗</span></a>
+    <a href="#" class="social-link">Weverse <span class="social-arrow">↗</span></a>
+    <a href="#" class="social-link">Spotify <span class="social-arrow">↗</span></a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">LNGSHOT</div>
+  <div class="footer-members">
+    <span>Ohyul</span>
+    <span>Ryul</span>
+    <span>Woojin</span>
+    <span>Louis</span>
+  </div>
+  <div class="footer-copy">© 2026 More Vision · All rights reserved</div>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+
+  function animateRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  document.querySelectorAll('a, button, .member-card').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform = 'translate(-50%,-50%) scale(1.8)';
+      ring.style.width = '56px'; ring.style.height = '56px';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.transform = 'translate(-50%,-50%) scale(1)';
+      ring.style.width = '36px'; ring.style.height = '36px';
+    });
+  });
+
+  // Scroll fade-up
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+  // Nav background on scroll
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) {
+      nav.style.background = 'rgba(10,10,10,0.95)';
+      nav.style.backdropFilter = 'blur(12px)';
+      nav.style.borderBottom = '1px solid rgba(201,168,76,0.1)';
+    } else {
+      nav.style.background = 'transparent';
+      nav.style.backdropFilter = 'none';
+      nav.style.borderBottom = 'none';
+    }
+  });
+</script>
+</body>
+</html>
